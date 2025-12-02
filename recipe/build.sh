@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-mkdir -p $PREFIX/bin $PREFIX/lib
+mkdir -p $PREFIX/bin
 
-cp bin/* $PREFIX/bin
-cp lib/* $PREFIX/lib
+cp bin/yarn $PREFIX/bin
+cp bin/yarn.js $PREFIX/bin
