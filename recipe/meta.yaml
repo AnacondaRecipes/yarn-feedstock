@@ -1,33 +1,38 @@
 {% set name = "yarn" %}
-{% set version = "1.22.22" %}
+{% set version = "4.11.0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://registry.npmjs.org/{{ name }}/-/{{ name }}-{{ version }}.tgz
-  sha1: ac34549e6aa8e7ead463a7407e1c7390f61a6610
+  - url: https://registry.npmjs.org/@yarnpkg/cli-dist/-/cli-dist-{{ version }}.tgz
+    sha256: e6b29c67f0d72b34d7f72adcb292f444f14462fb0f6c8c1790d790fa9876967e
+  - url: https://raw.githubusercontent.com/yarnpkg/berry/%40yarnpkg/cli/{{ version }}/LICENSE.md
+    sha256: 238d933f5c226cc197bd1dae2ad0c468e157b4cba8ed844f81549ba6db777dc4
 
 build:
   number: 0
-  # nodejs isn't available on s390x
-  skip: True # [linux and s390x]
 
 requirements:
   run:
-    - nodejs
+    - nodejs >=18.12.0
 
 test:
+  files:
+    - run_test.py
+  requires:
+    - python
+    - pytest
   commands:
     - yarn --version
-    - yarn versions
+    - python run_test.py
 
 about:
   home: https://yarnpkg.com
   license: BSD-2-Clause
   license_family: BSD
-  license_file: LICENSE
+  license_file: LICENSE.md
   summary: Fast, reliable, and secure dependency management.
   description: |
     Yarn is a package manager for your code. It allows you to use and share
